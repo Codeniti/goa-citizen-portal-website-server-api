@@ -31,4 +31,15 @@ ActiveRecord::Schema.define(:version => 20140426080455) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "issues", :force => true do |t|
+    t.text         "title"
+    t.text         "description"
+    t.string_array "location_tags", :limit => 255
+    t.string       "state"
+    t.string_array "verified_by",   :limit => 255
+    t.string_array "categories",    :limit => 255
+    t.datetime     "created_at"
+    t.datetime     "updated_at"
+  end
+
 end
