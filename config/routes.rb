@@ -8,7 +8,7 @@ Yuva::Application.routes.draw do
   post "/issues", :to => "issues#create"
   post "/issues/:id", :to => "issues#update"
   post "/issues/:id/resolve", :to => "issues#resolve"
-  post "/issues/:id/process", :to => "issues#process"
+  post "/issues/:id/process", :to => "issues#process_issue"
   post "/issues/:id/add_verifying_user", :to => "issues#add_verifying_user"
   post "/issues/:id/remove_verifying_user", :to => "issues#remove_verifying_user"
 

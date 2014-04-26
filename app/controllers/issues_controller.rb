@@ -53,7 +53,7 @@ class IssuesController < ApplicationController
     }
   end
 
-  def process
+  def process_issue
     issue.process!
     render :json => {
       :issue => issue_json(issue)
