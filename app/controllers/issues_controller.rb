@@ -31,7 +31,7 @@ class IssuesController < ApplicationController
       issue.verified_by = issue.verified_by + params[:user][:id]
       issue.save!
     end
-    return :json => {
+    render :json => {
       :issue => issue_json(issue)
     }
   end
@@ -41,7 +41,7 @@ class IssuesController < ApplicationController
       issue.verified_by = issue.verified_by - params[:user][:id]
       issue.save!
     end
-    return :json => {
+    render :json => {
       :issue => issue_json(issue)
     }
   end
