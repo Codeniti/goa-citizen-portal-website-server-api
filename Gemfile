@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-
+ruby '1.9.3'
 gem 'rails', '3.1.12'
 
 # Bundle edge Rails instead:
@@ -42,3 +42,5 @@ group :test do
   # Pretty printed test output
   gem 'turn', '~> 0.8.3', :require => false
 end
+# required on heroku
+gem 'rails_12factor', group: :production
