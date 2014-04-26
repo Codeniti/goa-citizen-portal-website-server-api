@@ -13,8 +13,7 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  include TestMixins::CommonMixin
-    # Add more helper methods to be used by all tests here...
+  # Add more helper methods to be used by all tests here...
   def get(action, parameters = nil, session = nil, flash = nil)
     process_action(action, parameters, session, flash, "GET")
   end
