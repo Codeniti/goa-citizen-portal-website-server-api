@@ -80,13 +80,16 @@ class IssuesController < ApplicationController
   def filter_issues
     issues = Issue.includes(:comments)
 
-    filters = params.slice(*[:location_tags, :categories, :title, :description, :from, :to])
+    filters = params.slice(*[:location_tags, :categories, :title, :description, :issues_from, :issues_to, :state])
 
     if filters.blank?
       return issues
     end
 
-    # TODO : Created at filters
+    st = (filters[:issues_from].present? ? Time.zone.parse(filters[:issues_from]) : (Time.zone.now - 10.days)).beginning_of_day
+    et = ((filters[:issues_to].present? && Time.zone.parse(filters[:issues_to]) <= Time.zone.now) ? Time.zone.now : Time.zone.parse(filters[:issues_to])).end_of_day
+
+    issues = issues.where("created_at >= ?", st.getutc).where("created_at <= ?", et.getutc)
 
     if(filters[:location_tags].present?)
       issues = issues.where("location_tags && ARRAY[?]", filters[:location_tags].join(","))
@@ -102,6 +105,10 @@ class IssuesController < ApplicationController
 
     if(filters[:description].present?)
       issues = issues.where("description iname ilike ?", "#{filters[:description]}%")
+    end
+
+    if(filters[:state].present?)
+      issues = issues.where("state = ?", filters[:state])
     end
 
     return issues
