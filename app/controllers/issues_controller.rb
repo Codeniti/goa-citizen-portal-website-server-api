@@ -135,6 +135,9 @@ class IssuesController < ApplicationController
         :only => [:description]
       }
     })
+    [:location_tags, :verified_by, :categories].each do |k|
+      ret[k] = ret[k].present? ? ret[k] : []
+    end
     ret[:verified_by] = User.where(:id => ret[:verified_by])
     return ret
   end
