@@ -2,27 +2,35 @@ class IssuesController < ApplicationController
   before_filter :find_issue, :except => [:index]
   def index
     return {
-      :json => issues_json(filter_issues)
+      :json => {
+        :issues => issues_json(filter_issues)
+      }
     }
   end
 
   def issue
     return {
-      :json => issue_json(issue)
+      :json => {
+        :issue => issue_json(issue)
+      }
     }
   end
 
   def resolve
     issue.resolve!
     return {
-      :json => issue_json(issue)
+      :json => {
+        :issue => issue_json(issue)
+      }
     }
   end
 
   def process
     issue.process!
     return {
-      :json => issue_json(issue)
+      :json => {
+        :issue => issue_json(issue)
+      }
     }
   end
 
