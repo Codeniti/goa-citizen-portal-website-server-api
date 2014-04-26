@@ -24,7 +24,7 @@ GEM
       activesupport (= 3.1.12)
       arel (~> 2.2.3)
       tzinfo (~> 0.3.29)
-    activerecord-postgres-array (0.0.10)
+    activerecord-postgres-array (0.0.8)
       activerecord
     activeresource (3.1.12)
       activemodel (= 3.1.12)
@@ -137,7 +137,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-postgres-array
+  activerecord-postgres-array (= 0.0.8)
   coffee-rails (~> 3.1.1)
   devise
   factory_girl_rails

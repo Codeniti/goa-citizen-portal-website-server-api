@@ -21,7 +21,7 @@ end
 
 gem 'jquery-rails'
 gem 'pg'
-gem 'activerecord-postgres-array'
+gem 'activerecord-postgres-array', '0.0.8'
 gem 'state_machine'
 gem 'factory_girl_rails', :group => :test
 
