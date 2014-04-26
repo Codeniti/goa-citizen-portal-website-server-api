@@ -3,6 +3,11 @@ Yuva::Application.routes.draw do
   root :to => 'issues#index'  
   devise_for :users
 
+  get "/issues", :to => "issues#index", :as => issue_list
+  get "/issues/:id", :to => "issues#issue", :as => issue_details
+  post "/issues/:id/resolve", :to => "issues#resolve"
+  post "/issues/:id/process", :to => "issues#process"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
