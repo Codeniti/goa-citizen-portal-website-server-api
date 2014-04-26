@@ -1,4 +1,5 @@
 class Issue < ActiveRecord::Base
+  has_many :comments
   attr_accessible :title,:description,:location_tags,:verified_by,:categories
 
   state_machine :initial => :unresolved do 
