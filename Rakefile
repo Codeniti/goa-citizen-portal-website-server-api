@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-CodenitiHackathon::Application.load_tasks
+Yuva::Application.load_tasks
