@@ -95,25 +95,25 @@ class IssuesController < ApplicationController
       return issues
     end
 
-    st = (filters[:issues_from].present? ? Time.zone.parse(filters[:issues_from]) : (Time.zone.now - 10.days)).beginning_of_day
-    et = ((filters[:issues_to].present? && Time.zone.parse(filters[:issues_to]) <= Time.zone.now) ? Time.zone.now : Time.zone.parse(filters[:issues_to])).end_of_day
+    # st = (filters[:issues_from].present? ? Time.zone.parse(filters[:issues_from]) : (Time.zone.now - 10.days)).beginning_of_day
+    # et = ((filters[:issues_to].present? && Time.zone.parse(filters[:issues_to]) <= Time.zone.now) ? Time.zone.now : Time.zone.parse(filters[:issues_to])).end_of_day
 
-    issues = issues.where("created_at >= ?", st.getutc).where("created_at <= ?", et.getutc)
+    # issues = issues.where("created_at >= ?", st.getutc).where("created_at <= ?", et.getutc)
 
-    if(filters[:location_tags].present?)
-      issues = issues.where("location_tags && ARRAY[?]", filters[:location_tags].join(","))
-    end
+    # if(filters[:location_tags].present?)
+    #   issues = issues.where("location_tags && "{?}"::character varying[]", filters[:location_tags])
+    # end
 
-    if(filters[:categories].present?)
-      issues = issues.where("categories && ARRAY[?]", filters[:categories].join(","))
-    end
+    # if(filters[:categories].present?)
+    #   issues = issues.where("categories && "{?}"::character varying[]", filters[:categories])
+    # end
 
     if(filters[:title].present?)
-      issues = issues.where("title iname ilike ?", "#{filters[:title]}%")
+      issues = issues.where("title ilike ?", "#{filters[:title]}%")
     end
 
     if(filters[:description].present?)
-      issues = issues.where("description iname ilike ?", "#{filters[:description]}%")
+      issues = issues.where("description ilike ?", "#{filters[:description]}%")
     end
 
     if(filters[:state].present?)
