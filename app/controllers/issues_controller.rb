@@ -1,36 +1,28 @@
 class IssuesController < ApplicationController
   before_filter :find_issue, :except => [:index, :create]
   def index
-    return {
-      :json => {
-        :issues => issues_json(filter_issues)
-      }
+    render :json => {
+      :issues => issues_json(filter_issues)
     }
   end
 
-  def issue
-    return {
-      :json => {
-        :issue => issue_json(issue)
-      }
+  def get
+    render :json => {
+      :issue => issue_json(issue)
     }
   end
 
   def create
     issue = Issue.new(params[:issue].slice*(Issue.accessible_attributes))
-    return {
-      :json => {
-        :issue => issue_json(issue)
-      }
+    render :json => {
+      :issue => issue_json(issue)
     }
   end
 
   def update
     issue.update_attributes(params[:issue].slice*(Issue.accessible_attributes - [:verified_by]))
-    return {
-      :json => {
-        :issue => issue_json(issue)
-      }
+    render :json => {
+      :issue => issue_json(issue)
     }
   end
 
@@ -56,19 +48,15 @@ class IssuesController < ApplicationController
 
   def resolve
     issue.resolve!
-    return {
-      :json => {
-        :issue => issue_json(issue)
-      }
+    render :json => {
+      :issue => issue_json(issue)
     }
   end
 
   def process
     issue.process!
-    return {
-      :json => {
-        :issue => issue_json(issue)
-      }
+    render :json => {
+      :issue => issue_json(issue)
     }
   end
 

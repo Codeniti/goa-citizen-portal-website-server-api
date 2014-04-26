@@ -4,7 +4,7 @@ Yuva::Application.routes.draw do
   devise_for :users
 
   get "/issues", :to => "issues#index", :as => "issue_list"
-  get "/issues/:id", :to => "issues#issue", :as => "issue_details"
+  get "/issues/:id", :to => "issues#get", :as => "issue_details"
   post "/issues", :to => "issues#create"
   post "/issues/:id", :to => "issues#update"
   post "/issues/:id/resolve", :to => "issues#resolve"
