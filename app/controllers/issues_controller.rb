@@ -1,29 +1,49 @@
 class IssuesController < ApplicationController
   before_filter :find_issue, :except => [:index, :create]
   def index
-    render :json => {
-      :issues => issues_json(filter_issues)
-    }
+    respond_to do |format|
+      format.html { render }
+      format.json do
+        render :json => {
+          :issues => issues_json(filter_issues)
+        }
+      end
+    end
   end
 
   def get
-    render :json => {
-      :issue => issue_json(issue)
-    }
+    respond_to do |format|
+      format.html { render "issue_details" }
+      format.json do
+        render :json => {
+          :issue => issue_json(issue)
+        }
+      end
+    end
   end
 
   def create
     issue = Issue.new(params[:issue].slice*(Issue.accessible_attributes))
-    render :json => {
-      :issue => issue_json(issue)
-    }
+    respond_to do |format|
+      format.html { redirect_to issue_details_url(:id => issue.id) }
+      format.json do
+        render :json => {
+          :issue => issue_json(issue)
+        }
+      end
+    end
   end
 
   def update
     issue.update_attributes(params[:issue].slice*(Issue.accessible_attributes - [:verified_by]))
-    render :json => {
-      :issue => issue_json(issue)
-    }
+    respond_to do |format|
+      format.html { redirect_to issue_details_url(:id => issue.id) }
+      format.json do
+        render :json => {
+          :issue => issue_json(issue)
+        }
+      end
+    end
   end
 
   def add_verifying_user
