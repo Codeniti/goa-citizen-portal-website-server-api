@@ -5,8 +5,12 @@ Yuva::Application.routes.draw do
 
   get "/issues", :to => "issues#index", :as => "issue_list"
   get "/issues/:id", :to => "issues#issue", :as => "issue_details"
+  post "/issues", :to => "issues#create"
+  post "/issues/:id", :to => "issues#update"
   post "/issues/:id/resolve", :to => "issues#resolve"
   post "/issues/:id/process", :to => "issues#process"
+  post "/issues/:id/add_verifying_user", :to => "issues#add_verifying_user"
+  post "/issues/:id/remove_verifying_user", :to => "issues#remove_verifying_user"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

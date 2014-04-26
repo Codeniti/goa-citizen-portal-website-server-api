@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-  before_filter :find_issue, :except => [:index]
+  before_filter :find_issue, :except => [:index, :create]
   def index
     return {
       :json => {
@@ -13,6 +13,44 @@ class IssuesController < ApplicationController
       :json => {
         :issue => issue_json(issue)
       }
+    }
+  end
+
+  def create
+    issue = Issue.new(params[:issue].slice*(Issue.accessible_attributes))
+    return {
+      :json => {
+        :issue => issue_json(issue)
+      }
+    }
+  end
+
+  def update
+    issue.update_attributes(params[:issue].slice*(Issue.accessible_attributes - [:verified_by]))
+    return {
+      :json => {
+        :issue => issue_json(issue)
+      }
+    }
+  end
+
+  def add_verifying_user
+    if params[:user].present? && params[:user][:id].present?
+      issue.verified_by = issue.verified_by + params[:user][:id]
+      issue.save!
+    end
+    return :json => {
+      :issue => issue_json(issue)
+    }
+  end
+
+  def remove_verifying_user
+    if params[:user].present? && params[:user][:id].present?
+      issue.verified_by = issue.verified_by - params[:user][:id]
+      issue.save!
+    end
+    return :json => {
+      :issue => issue_json(issue)
     }
   end
 
@@ -74,12 +112,14 @@ class IssuesController < ApplicationController
   end
 
   def issue_json(issue)
-    return issue.as_json({
+    ret = issue.as_json({
       :except => [:updated_at],
       :comments => {
         :user => {},
         :only => [:description]
       }
     })
+    ret[:verified_by] = User.where(:id => ret[:verified_by])
+    return ret
   end
 end

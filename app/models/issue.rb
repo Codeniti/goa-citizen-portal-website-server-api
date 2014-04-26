@@ -13,9 +13,4 @@ class Issue < ActiveRecord::Base
       transition :unresolved => :under_process
     end
   end
-
-  def verified_by
-    user_ids = self.attributes[:verified_by]
-    return User.where(:id => user_ids)
-  end
 end
