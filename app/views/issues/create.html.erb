@@ -1,0 +1,9 @@
+<h3>Create an Issue</h3>
+
+<%= form_for @issue, :url => '' do |f| %>
+  <%= f.label :title, 'Title' %>:
+  <%= f.text_field :title %><br />
+  <%= f.label :description, 'Description' %>:
+  <%= f.text_field :description %><br />
+  <%= f.submit %>
+<% end %>
