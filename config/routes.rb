@@ -1,7 +1,8 @@
 Yuva::Application.routes.draw do
+  
+  root :to => 'issues#index'  
   devise_for :users
 
-  root :to => 'issues#index'  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -59,5 +60,4 @@ Yuva::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
-  get "/" :to => "issues#index"
 end
