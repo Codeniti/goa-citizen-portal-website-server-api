@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'activerecord-postgres-array'
 gem 'state_machine'
+gem 'factory_girl_rails', :group => :test
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
