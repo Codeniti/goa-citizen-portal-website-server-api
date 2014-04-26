@@ -1,11 +1,12 @@
 class IssuesController < ApplicationController
   before_filter :find_issue, :except => [:index, :create]
   def index
+    @issues = filter_issues
     respond_to do |format|
       format.html { render }
       format.json do
         render :json => {
-          :issues => issues_json(filter_issues)
+          :issues => issues_json(@issues)
         }
       end
     end
@@ -16,19 +17,19 @@ class IssuesController < ApplicationController
       format.html { render "issue_details" }
       format.json do
         render :json => {
-          :issue => issue_json(issue)
+          :issue => issue_json(@issue)
         }
       end
     end
   end
 
   def create
-    issue = Issue.new(params[:issue].slice*(Issue.accessible_attributes))
+    @issue = Issue.new(params[:issue].slice*(Issue.accessible_attributes))
     respond_to do |format|
-      format.html { redirect_to issue_details_url(:id => issue.id) }
+      format.html { redirect_to issue_details_url(:id => @issue.id) }
       format.json do
         render :json => {
-          :issue => issue_json(issue)
+          :issue => issue_json(@issue)
         }
       end
     end
@@ -37,10 +38,10 @@ class IssuesController < ApplicationController
   def update
     issue.update_attributes(params[:issue].slice*(Issue.accessible_attributes - [:verified_by]))
     respond_to do |format|
-      format.html { redirect_to issue_details_url(:id => issue.id) }
+      format.html { redirect_to issue_details_url(:id => @issue.id) }
       format.json do
         render :json => {
-          :issue => issue_json(issue)
+          :issue => issue_json(@issue)
         }
       end
     end
@@ -48,41 +49,41 @@ class IssuesController < ApplicationController
 
   def add_verifying_user
     if params[:user].present? && params[:user][:id].present?
-      issue.verified_by = issue.verified_by + params[:user][:id]
-      issue.save!
+      @issue.verified_by = @issue.verified_by + params[:user][:id]
+      @issue.save!
     end
     render :json => {
-      :issue => issue_json(issue)
+      :issue => issue_json(@issue)
     }
   end
 
   def remove_verifying_user
     if params[:user].present? && params[:user][:id].present?
-      issue.verified_by = issue.verified_by - params[:user][:id]
-      issue.save!
+      @issue.verified_by = @issue.verified_by - params[:user][:id]
+      @issue.save!
     end
     render :json => {
-      :issue => issue_json(issue)
+      :issue => issue_json(@issue)
     }
   end
 
   def resolve
     issue.resolve!
     render :json => {
-      :issue => issue_json(issue)
+      :issue => issue_json(@issue)
     }
   end
 
   def process_issue
     issue.process!
     render :json => {
-      :issue => issue_json(issue)
+      :issue => issue_json(@issue)
     }
   end
 
   def find_issue
     # TODO : handle cases where the issue is not found
-    issue = Issue.find(params[:id])
+    @issue = Issue.find(params[:id])
   end
 
   def filter_issues
