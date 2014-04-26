@@ -134,7 +134,7 @@ class IssuesController < ApplicationController
         :user => {},
         :only => [:description]
       }
-    })
+    }).with_indifferent_access
     [:location_tags, :verified_by, :categories].each do |k|
       ret[k] = ret[k].present? ? ret[k] : []
     end
