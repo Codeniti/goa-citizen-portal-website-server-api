@@ -6,7 +6,8 @@ gem 'rails', '3.1.12'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'pg'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -15,7 +16,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
